@@ -900,6 +900,7 @@ pub struct ChatCompletionStreamOptions {
 #[derive(Debug, Serialize, Deserialize, Clone, Copy, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum FinishReason {
+    #[serde(alias = "eos")]
     Stop,
     Length,
     ToolCalls,
