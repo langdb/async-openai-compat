@@ -94,7 +94,7 @@ pub enum ContentType {
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct InputText {
-    text: String,
+    pub text: String,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Default, Builder)]
@@ -107,14 +107,14 @@ pub struct InputText {
 #[builder(build_fn(error = "OpenAIError"))]
 pub struct InputImage {
     /// The detail level of the image to be sent to the model.
-    detail: ImageDetail,
+    pub detail: ImageDetail,
     /// The ID of the file to be sent to the model.
     #[serde(skip_serializing_if = "Option::is_none")]
-    file_id: Option<String>,
+    pub file_id: Option<String>,
     /// The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image
     /// in a data URL.
     #[serde(skip_serializing_if = "Option::is_none")]
-    image_url: Option<String>,
+    pub image_url: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Default, Builder)]
@@ -128,13 +128,13 @@ pub struct InputImage {
 pub struct InputFile {
     /// The content of the file to be sent to the model.
     #[serde(skip_serializing_if = "Option::is_none")]
-    file_data: Option<String>,
+    pub file_data: Option<String>,
     /// The ID of the file to be sent to the model.
     #[serde(skip_serializing_if = "Option::is_none")]
-    file_id: Option<String>,
+    pub file_id: Option<String>,
     /// The name of the file to be sent to the model.
     #[serde(skip_serializing_if = "Option::is_none")]
-    filename: Option<String>,
+    pub filename: Option<String>,
 }
 
 /// Builder for a Responses API request.
