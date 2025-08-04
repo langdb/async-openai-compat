@@ -870,6 +870,10 @@ pub struct CreateChatCompletionRequest {
     #[deprecated]
     #[serde(skip_serializing_if = "Option::is_none")]
     pub functions: Option<Vec<ChatCompletionFunctions>>,
+
+    /// The key to use for caching the prompt.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub prompt_cache_key: Option<String>,
 }
 
 /// Options for streaming response. Only set this when you set `stream: true`.
