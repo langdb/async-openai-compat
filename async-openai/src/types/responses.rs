@@ -301,6 +301,10 @@ pub struct CreateResponse {
     /// monitor and detect abuse.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<String>,
+
+    /// The key to use for caching the prompt.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub prompt_cache_key: Option<String>,
 }
 
 /// Service tier request options.
