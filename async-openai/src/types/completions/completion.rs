@@ -114,6 +114,10 @@ pub struct CreateCompletionRequest {
     /// Determinism is not guaranteed, and you should refer to the `system_fingerprint` response parameter to monitor changes in the backend.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub seed: Option<i64>,
+
+    /// The key to use for caching the prompt.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub prompt_cache_key: Option<String>,
 }
 
 #[derive(Debug, Deserialize, Clone, PartialEq, Serialize)]
