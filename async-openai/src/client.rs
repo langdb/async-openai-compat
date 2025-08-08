@@ -473,7 +473,25 @@ impl<C: Config> Client<C> {
 
 async fn handle_eventsource_error(e: Error) -> Result<(), OpenAIError> {
     let error_text = e.to_string();
-    if let Error::InvalidStatusCode(_code, response) = e {
+    if let Error::InvalidStatusCode(code, response) = e {
+        if code.as_u16() == 429 {
+            return Err(OpenAIError::ApiError(ApiError {
+                message: "Rate limited by provider".to_string(),
+                r#type: None,
+                param: None,
+                code: None,
+            }));
+        }
+
+        if code.as_u16() == 408 {
+            return Err(OpenAIError::ApiError(ApiError {
+                message: "Request to provider timed out".to_string(),
+                r#type: None,
+                param: None,
+                code: None,
+            }));
+        }
+
         if let Ok(text) = response.text().await {
             let api_error = serde_json::from_str::<WrappedError>(&text);
             if let Ok(e) = api_error {
