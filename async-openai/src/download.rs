@@ -1,7 +1,8 @@
 use std::path::{Path, PathBuf};
 
 use base64::{engine::general_purpose, Engine as _};
-use rand::{distributions::Alphanumeric, Rng};
+use rand::distr::Alphanumeric;
+use rand::Rng;
 use reqwest::Url;
 
 use crate::error::OpenAIError;

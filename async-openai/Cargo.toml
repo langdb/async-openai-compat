@@ -31,25 +31,25 @@ async-openai-macros = { path = "../async-openai-macros", version = "0.1.0" }
 backoff = { version = "0.4.0", features = ["tokio"] }
 base64 = "0.22.1"
 futures = "0.3.31"
-rand = "0.8.5"
+rand = "0.9.2"
 reqwest = { version = "0.12.12", features = [
   "json",
   "stream",
   "multipart",
 ], default-features = false }
 reqwest-eventsource = "0.6.0"
-serde = { version = "1.0.217", features = ["derive", "rc"] }
-serde_json = "1.0.135"
-thiserror = "2.0.11"
-tokio = { version = "1.43.0", features = ["fs", "macros"] }
+serde = { version = "1.0.219", features = ["derive", "rc"] }
+serde_json = "1.0.143"
+thiserror = "2.0.16"
+tokio = { version = "1.47.1", features = ["fs", "macros"] }
 tokio-stream = "0.1.17"
-tokio-util = { version = "0.7.13", features = ["codec", "io-util"] }
+tokio-util = { version = "0.7.16", features = ["codec", "io-util"] }
 tracing = "0.1.41"
 derive_builder = "0.20.2"
 secrecy = { version = "0.10.3", features = ["serde"] }
-bytes = "1.9.0"
+bytes = "1.10.1"
 eventsource-stream = "0.2.3"
-tokio-tungstenite = { version = "0.26.1", optional = true, default-features = false }
+tokio-tungstenite = { version = "0.27.0", optional = true, default-features = false }
 
 [dev-dependencies]
 tokio-test = "0.4.4"
