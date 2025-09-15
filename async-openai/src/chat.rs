@@ -69,6 +69,7 @@ impl<'c, C: Config> Chat<'c, C> {
         where_clause = "R: std::marker::Send + 'static"
     )]
     #[allow(unused_mut)]
+    #[tracing::instrument(skip(self, request))]
     pub async fn create_stream(
         &self,
         mut request: CreateChatCompletionRequest,

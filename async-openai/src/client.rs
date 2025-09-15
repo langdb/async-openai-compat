@@ -5,6 +5,7 @@ use futures::{stream::StreamExt, Stream};
 use reqwest::multipart::Form;
 use reqwest_eventsource::{Error, Event, EventSource, RequestBuilderExt};
 use serde::{de::DeserializeOwned, Serialize};
+use tracing_futures::Instrument;
 
 use crate::{
     config::{Config, OpenAIConfig},
@@ -405,6 +406,7 @@ impl<C: Config> Client<C> {
     }
 
     /// Make HTTP POST request to receive SSE
+    #[tracing::instrument(skip(self, path, request))]
     pub(crate) async fn post_stream<I, O>(
         &self,
         path: &str,
@@ -503,8 +505,20 @@ async fn handle_eventsource_error(e: Error) -> Result<(), OpenAIError> {
     Err(OpenAIError::StreamError(error_text))
 }
 
+#[tracing::instrument(skip(message))]
+fn handle_event<O>(message: &str) -> Result<O, OpenAIError>
+where
+    O: DeserializeOwned,
+{
+    match serde_json::from_str::<O>(message) {
+        Err(e) => Err(map_deserialization_error(e, message.as_bytes())),
+        Ok(output) => Ok(output),
+    }
+}
+
 /// Request which responds with SSE.
 /// [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#event_stream_format)
+#[tracing::instrument(skip(event_source))]
 pub(crate) async fn stream<O>(
     mut event_source: EventSource,
 ) -> Pin<Box<dyn Stream<Item = Result<O, OpenAIError>> + Send>>
@@ -530,10 +544,7 @@ where
                             break;
                         }
 
-                        let response = match serde_json::from_str::<O>(&message.data) {
-                            Err(e) => Err(map_deserialization_error(e, message.data.as_bytes())),
-                            Ok(output) => Ok(output),
-                        };
+                        let response = handle_event::<O>(&message.data);
 
                         if let Err(_e) = tx.send(response) {
                             // rx dropped
@@ -546,7 +557,7 @@ where
         }
 
         event_source.close();
-    });
+    }.in_current_span());
 
     Box::pin(tokio_stream::wrappers::UnboundedReceiverStream::new(rx))
 }

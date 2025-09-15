@@ -45,6 +45,7 @@ tokio = { version = "1.47.1", features = ["fs", "macros"] }
 tokio-stream = "0.1.17"
 tokio-util = { version = "0.7.16", features = ["codec", "io-util"] }
 tracing = "0.1.41"
+tracing-futures = "0.2.5"
 derive_builder = "0.20.2"
 secrecy = { version = "0.10.3", features = ["serde"] }
 bytes = "1.10.1"
