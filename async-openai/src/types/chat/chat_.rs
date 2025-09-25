@@ -679,13 +679,15 @@ pub struct WebSearchOptions {
 }
 
 #[derive(Clone, Serialize, Debug, Deserialize, PartialEq)]
-#[serde(rename_all = "lowercase")]
+#[serde(rename_all = "snake_case")]
 pub enum ServiceTier {
     Auto,
     Default,
     Flex,
     Scale,
     Priority,
+    OnDemand,
+    Performance,
 }
 
 /// Constrains the verbosity of the model's response. Lower values will result in more concise responses, while higher values will result in more verbose responses. Currently supported values are `low`, `medium`, and `high`.
