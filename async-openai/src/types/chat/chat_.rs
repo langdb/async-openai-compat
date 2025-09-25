@@ -692,6 +692,17 @@ pub enum ServiceTier {
 
 /// Constrains the verbosity of the model's response. Lower values will result in more concise responses, while higher values will result in more verbose responses. Currently supported values are `low`, `medium`, and `high`.
 #[derive(Clone, Serialize, Debug, Deserialize, PartialEq, Default)]
+#[serde(rename_all = "snake_case")]
+pub enum ServiceTierResponse {
+    Scale,
+    Default,
+    Flex,
+    Priority,
+    OnDemand,
+    Performance,
+}
+
+#[derive(Clone, Serialize, Debug, Deserialize, PartialEq)]
 #[serde(rename_all = "lowercase")]
 pub enum Verbosity {
     Low,
