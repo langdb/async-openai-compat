@@ -34,6 +34,11 @@ impl Client<OpenAIConfig> {
     }
 }
 
+#[derive(Debug, Deserialize)]
+struct CustomError {
+    error: String
+}
+
 impl<C: Config> Client<C> {
     /// Create client with a custom HTTP client, OpenAI config, and backoff.
     pub fn build(
