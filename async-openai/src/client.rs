@@ -4,7 +4,7 @@ use bytes::Bytes;
 use futures::{stream::StreamExt, Stream};
 use reqwest::{multipart::Form, Response};
 use reqwest_eventsource::{Error as EventSourceError, Event, EventSource, RequestBuilderExt};
-use serde::{de::DeserializeOwned, Serialize, Deserialize};
+use serde::{de::DeserializeOwned, Serialize};
 
 use crate::{
     config::{Config, OpenAIConfig},
@@ -32,11 +32,6 @@ impl Client<OpenAIConfig> {
     pub fn new() -> Self {
         Self::default()
     }
-}
-
-#[derive(Debug, Deserialize)]
-struct CustomError {
-    error: String
 }
 
 impl<C: Config> Client<C> {
