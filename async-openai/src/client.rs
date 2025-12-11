@@ -7,7 +7,7 @@ use futures::{stream::StreamExt, Stream};
 use reqwest::{header::HeaderMap, multipart::Form, Response};
 #[cfg(not(target_family = "wasm"))]
 use reqwest_eventsource::{Error as EventSourceError, Event, EventSource, RequestBuilderExt};
-use serde::{de::DeserializeOwned, Serialize, Deserialize};
+use serde::{de::DeserializeOwned, Serialize};
 
 #[cfg(not(target_family = "wasm"))]
 use crate::error::StreamError;
@@ -92,11 +92,6 @@ impl Client<OpenAIConfig> {
     pub fn new() -> Self {
         Self::default()
     }
-}
-
-#[derive(Debug, Deserialize)]
-struct CustomError {
-    error: String
 }
 
 impl<C: Config> Client<C> {
