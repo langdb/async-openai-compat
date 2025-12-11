@@ -4,7 +4,7 @@ use bytes::Bytes;
 use futures::{stream::StreamExt, Stream};
 use reqwest::{multipart::Form, Response};
 use reqwest_eventsource::{Error as EventSourceError, Event, EventSource, RequestBuilderExt};
-use serde::{de::DeserializeOwned, Serialize};
+use serde::{de::DeserializeOwned, Serialize, Deserialize};
 
 use crate::{
     config::{Config, OpenAIConfig},
