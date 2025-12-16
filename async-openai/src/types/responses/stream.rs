@@ -275,7 +275,7 @@ pub struct ResponseFunctionCallArgumentsDeltaEvent {
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct ResponseFunctionCallArgumentsDoneEvent {
-    pub name: String,
+    pub name: Option<String>,
     pub sequence_number: u64,
     pub item_id: String,
     pub output_index: u32,
