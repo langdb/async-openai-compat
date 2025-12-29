@@ -234,14 +234,14 @@ pub struct FileObject {
     /// The base64 encoded file data, used when passing the file to the model
     /// as a string.
     #[serde(skip_serializing_if = "Option::is_none")]
-    file_data: Option<String>,
+    pub file_data: Option<String>,
     /// The ID of an uploaded file to use as input.
     #[serde(skip_serializing_if = "Option::is_none")]
-    file_id: Option<String>,
+    pub file_id: Option<String>,
     /// The name of the file, used when passing the file to the model as a
     /// string.
     #[serde(skip_serializing_if = "Option::is_none")]
-    filename: Option<String>,
+    pub filename: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Default, Clone, PartialEq)]
@@ -691,7 +691,7 @@ pub enum ServiceTier {
 }
 
 /// Constrains the verbosity of the model's response. Lower values will result in more concise responses, while higher values will result in more verbose responses. Currently supported values are `low`, `medium`, and `high`.
-#[derive(Clone, Serialize, Debug, Deserialize, PartialEq, Default)]
+#[derive(Clone, Serialize, Debug, Deserialize, PartialEq)]
 #[serde(rename_all = "snake_case")]
 pub enum ServiceTierResponse {
     Scale,
@@ -702,7 +702,7 @@ pub enum ServiceTierResponse {
     Performance,
 }
 
-#[derive(Clone, Serialize, Debug, Deserialize, PartialEq)]
+#[derive(Clone, Serialize, Debug, Deserialize, PartialEq, Default)]
 #[serde(rename_all = "lowercase")]
 pub enum Verbosity {
     Low,
