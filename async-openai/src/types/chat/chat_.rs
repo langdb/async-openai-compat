@@ -1027,6 +1027,7 @@ pub struct ChatCompletionStreamOptions {
     /// of overhead to the data stream. You can set `include_obfuscation` to
     /// false to optimize for bandwidth if you trust the network links between
     /// your application and the OpenAI API.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub include_obfuscation: Option<bool>,
 }
 
