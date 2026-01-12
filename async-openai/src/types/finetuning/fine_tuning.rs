@@ -273,11 +273,14 @@ pub struct WandB {
 #[derive(Debug, Deserialize, Serialize, Clone, PartialEq)]
 pub struct FineTuneJobError {
     ///  A machine-readable error code.
-    pub code: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub code: Option<String>,
     ///  A human-readable error message.
-    pub message: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub message: Option<String>,
     /// The parameter that was invalid, usually `training_file` or `validation_file`.
     /// This field will be null if the failure was not parameter-specific.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub param: Option<String>, // nullable true
 }
 
@@ -307,6 +310,7 @@ pub struct FineTuningJob {
     /// The Unix timestamp (in seconds) for when the fine-tuning job was created.
     pub created_at: u64,
     /// For fine-tuning jobs that have `failed`, this will contain more information on the cause of the failure.
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub error: Option<FineTuneJobError>,
     /// The name of the fine-tuned model that is being created.
     /// The value will be null if the fine-tuning job is still running.
